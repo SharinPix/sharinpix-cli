@@ -1,0 +1,52 @@
+{
+  "name": "sharinpix",
+  "description": "The SharinPix CLI is used to interact with SharinPix from the command line.",
+  "version": "0.0.0",
+  "author": "SharinPix",
+  "bin": {
+    "sharinpix": "./bin/run"
+  },
+  "bugs": "https://github.com/SharinPix/sharinpix-cli/issues",
+  "dependencies": {
+    "@oclif/command": "^1.5.1",
+    "@oclif/config": "^1.7.6",
+    "@oclif/plugin-help": "^2.1.2"
+  },
+  "devDependencies": {
+    "@oclif/dev-cli": "^1.18.1",
+    "@oclif/test": "^1.2.1",
+    "chai": "^4.2.0",
+    "globby": "^8.0.1",
+    "mocha": "^5.2.0",
+    "nyc": "^13.0.1"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "files": [
+    "/bin",
+    "/npm-shrinkwrap.json",
+    "/oclif.manifest.json",
+    "/src"
+  ],
+  "homepage": "https://github.com/SharinPix/sharinpix-cli",
+  "keywords": [
+    "oclif"
+  ],
+  "license": "MIT",
+  "main": "src/index.js",
+  "oclif": {
+    "commands": "./src/commands",
+    "bin": "sharinpix",
+    "plugins": [
+      "@oclif/plugin-help"
+    ]
+  },
+  "repository": "SharinPix/sharinpix-cli",
+  "scripts": {
+    "postpack": "rm -f oclif.manifest.json npm-shrinkwrap.json",
+    "prepack": "oclif-dev manifest && oclif-dev readme && npm shrinkwrap",
+    "test": "nyc mocha --forbid-only \"test/**/*.test.js\"",
+    "version": "oclif-dev readme && git add README.md"
+  }
+}
