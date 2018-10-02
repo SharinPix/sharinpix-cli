@@ -10,7 +10,11 @@
   "dependencies": {
     "@oclif/command": "^1.5.1",
     "@oclif/config": "^1.7.6",
-    "@oclif/plugin-help": "^2.1.2"
+    "@oclif/plugin-help": "^2.1.2",
+    "coffeescript": "^2.3.2",
+    "fast-csv": "^2.4.1",
+    "sharinpix-import": "^1.0.3",
+    "sharinpix-js": "0.0.9"
   },
   "devDependencies": {
     "@oclif/dev-cli": "^1.18.1",
