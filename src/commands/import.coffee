@@ -1,5 +1,4 @@
 {Command, flags} = require('@oclif/command')
-SpImport = require('sharinpix-import')
 Sharinpix = require('sharinpix-js')
 async = require('async')
 csv = require('fast-csv')
@@ -27,11 +26,19 @@ class ImportCommand extends Command
       )
     , 10)
 
-    csv
-      .fromStream(fs.createReadStream(file), delimiter: ';')
-      .on "data", (data)->
-        console.log 'read'
-        q.push(album_id: data[0], url: data[1], tags: data[2], metadatas: data[3])
+    await new Promise (resolve, reject)->
+      console.log(1)
+      csv
+        .fromStream(fs.createReadStream(file), delimiter: ';')
+        .on "data", (data)->
+          console.log 'read'
+          q.push(album_id: data[0], url: data[1], tags: data[2], metadatas: data[3])
+        .on "end", ->
+          resolve()
+
+    await new Promise (resolve, reject)->
+      q.drain ()->
+        resolve()
 
 ImportCommand.description = "Import images"
 

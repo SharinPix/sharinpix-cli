@@ -13,12 +13,12 @@ describe('import', () => {
   test
   .stdout()
   .command(['import','--file','sample.csv'])
-  .it('sends csv file successfully', ctx => {
+  .it('sends csv file successfully', () => {
     // expect(fakepost.getCall(0).args).to.equals([])
     expect(fakepost.getCall(0).args[0]).to.equals('/imports')
     expect(fakepost.getCall(0).args[1].album_id).to.equals('000000000000000000')
     expect(fakepost.getCall(0).args[1].url).to.equals('http://lorempixel.com/400/200/sports/')
     // expect(fakepost.getCall(0).args[1].tags).to.equals([])
-    //expect(fakepost.getCall(0).args[1].metadatas.import_id).to.equals('{"key":"value"}')
+    // expect(fakepost.getCall(0).args[1].metadatas.import_id).to.equals('{"key":"value"}')
   })
 })
