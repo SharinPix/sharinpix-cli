@@ -1,31 +1,44 @@
 {Command, flags} = require('@oclif/command')
 SpImport = require('sharinpix-import')
-# Sharinpix = require('sharinpix');
+Sharinpix = require('sharinpix-js')
+async = require('async')
+csv = require('fast-csv')
+fs = require('fs')
 
 class ImportCommand extends Command
   run: ->
     {flags} = @parse(ImportCommand)
     file = flags.file
 
-    new Promise((resolve, reject) -> 
-      resolve SpImport(file)
-    ).then (result)=>
-      @log("#{file} imported")
+    q = async.queue((task, callback)->
+      console.log 'task'
+      line = "#{task.album_id},#{task.url},#{task.tags},#{task.metadatas}"
+      Sharinpix.get_instance().post("/imports", {
+        import_type: 'url'
+        album_id: "#{task.album_id}"
+        url: "#{task.url}"
+        metadatas: "#{task.metadatas}"
+      }).then((result)->
+        console.log(line)
+        callback()
+      , (err)->
+        console.error(line)
+        callback()
+      )
+    , 10)
 
-    # Sharinpix.get_instance().post("/imports", {
-    #     import_type: 'url'
-    #     album_id: 'dipshika'
-    #     url: 'https://google.com'
-    #     tags: []
-    #     metadatas: {import_id: 'dipshika'}
-    # }).then (results)=>
-    #   this.log("blabla")
+    csv
+      .fromStream(fs.createReadStream(file), delimiter: ';')
+      .on "data", (data)->
+        console.log 'read'
+        q.push(album_id: data[0], url: data[1], tags: data[2], metadatas: data[3])
 
 ImportCommand.description = "Import images"
 
-ImportCommand.flags = file: flags.string(
-  char: 'f'
-  description: 'Path of file to import'
-  required: true)
+ImportCommand.flags = 
+  file: flags.string(
+    char: 'f'
+    description: 'Path of file to import'
+    required: true)
 
 module.exports = ImportCommand
