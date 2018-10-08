@@ -3,10 +3,7 @@ const cli =  require('cli-ux')
 
 class AuthCommand extends Command {
   async run() {
-    const not_set_message = `SHARINPIX_URL is not set. Run the following commands:
-      Windows: set SHARINPIX_URL=<<value>>
-      Unix: export SHARINPIX_URL=<<value>>
-    `
+    const not_set_message = "SHARINPIX_URL is not set. Run the following commands: \nOn Windows: set SHARINPIX_URL=<<value>>\nOn Unix: export SHARINPIX_URL=<<value>>"
     const {flags} = this.parse(AuthCommand)
     if(Object.keys(flags).length === 0) {
         if(process.env.SHARINPIX_URL) {
