@@ -4,20 +4,23 @@ async = require('async')
 csv = require('fast-csv')
 fs = require('fs')
 
+wstream = fs.createWriteStream('myOutput.txt')
+
 class ImportCommand extends Command
-  run: ->
+  run: =>
     {flags} = @parse(ImportCommand)
     file = flags.file
 
-    q = async.queue((task, callback)->
-      console.log 'task'
+    q = async.queue((task, callback)=>
       line = "#{task.album_id},#{task.url},#{task.tags},#{task.metadatas}"
       Sharinpix.get_instance().post("/imports", {
         import_type: 'url'
         album_id: "#{task.album_id}"
         url: "#{task.url}"
+        tags: "#{task.tags}"
         metadatas: "#{task.metadatas}"
-      }).then((result)->
+      })
+      .then((result)->
         console.log(line)
         callback()
       , (err)->
@@ -27,18 +30,19 @@ class ImportCommand extends Command
     , 10)
 
     await new Promise (resolve, reject)->
-      console.log(1)
-      csv
-        .fromStream(fs.createReadStream(file), delimiter: ';')
-        .on "data", (data)->
-          console.log 'read'
-          q.push(album_id: data[0], url: data[1], tags: data[2], metadatas: data[3])
-        .on "end", ->
-          resolve()
+      try
+        csv
+          .fromStream(fs.createReadStream(file), delimiter: ';')
+          .on "data", (data)->
+            q.push(album_id: data[0], url: data[1], tags: data[2], metadatas: data[3])
+          .on "end", ->
+            resolve()
+      catch e
+        @log e
+        console.log e
 
-    await new Promise (resolve, reject)->
-      q.drain ()->
-        resolve()
+    q.drain =>
+      resolve()
 
 ImportCommand.description = "Import images"
 
