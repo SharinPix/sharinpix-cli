@@ -4,8 +4,6 @@ async = require('async')
 csv = require('fast-csv')
 fs = require('fs')
 
-wstream = fs.createWriteStream('myOutput.txt')
-
 class ImportCommand extends Command
   run: =>
     {flags} = @parse(ImportCommand)
@@ -30,16 +28,12 @@ class ImportCommand extends Command
     , 10)
 
     await new Promise (resolve, reject)->
-      try
-        csv
-          .fromStream(fs.createReadStream(file), delimiter: ';')
-          .on "data", (data)->
-            q.push(album_id: data[0], url: data[1], tags: data[2], metadatas: data[3])
-          .on "end", ->
-            resolve()
-      catch e
-        @log e
-        console.log e
+      csv
+        .fromStream(fs.createReadStream(file), delimiter: ';')
+        .on "data", (data)->
+          q.push(album_id: data[0], url: data[1], tags: data[2], metadatas: data[3])
+        .on "end", ->
+          resolve()
 
     q.drain =>
       resolve()

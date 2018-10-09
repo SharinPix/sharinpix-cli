@@ -4,18 +4,14 @@ const {expect, test} = require('@oclif/test'),
 
 describe('import', () => {
   var fakepost;
+
   beforeEach(() => {
-    instance = sharinpix.get_instance()
     fakepost = sinon.fake.returns(new Promise((resolve, reject) => {
-      return('apple pie')        
+      return('fake response')
     }))
 
-    returnValue = {
-      post: fakepost
-    }
-
     var stub = sinon.stub(sharinpix, 'get_instance')
-    stub.returns(returnValue)
+    stub.returns({post: fakepost})
   })
 
   test
