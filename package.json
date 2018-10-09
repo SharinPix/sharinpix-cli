@@ -13,7 +13,6 @@
     "@oclif/plugin-help": "^2.1.2",
     "coffeescript": "^2.3.2",
     "fast-csv": "^2.4.1",
-    "sharinpix-import": "^1.0.3",
     "sharinpix-js": "0.0.9"
   },
   "devDependencies": {
@@ -22,9 +21,7 @@
     "chai": "^4.2.0",
     "globby": "^8.0.1",
     "mocha": "^5.2.0",
-    "nock": "^10.0.0",
     "nyc": "^13.0.1",
-    "proxyquire": "^2.1.0",
     "sinon": "^6.3.4"
   },
   "engines": {
