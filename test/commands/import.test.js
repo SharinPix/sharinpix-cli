@@ -16,7 +16,7 @@ describe('import', () => {
 
   test
   .stdout()
-  .command(['import','--file','sample.csv'])
+  .command(['import','--file','importsample.csv'])
   .it('sends csv file successfully', () => {
     expect(fakepost.getCall(0).args[0]).to.equals('/imports')
     expect(fakepost.getCall(0).args[1].album_id).to.equals('000000000000000000')

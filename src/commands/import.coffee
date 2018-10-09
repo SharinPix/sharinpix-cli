@@ -35,9 +35,6 @@ class ImportCommand extends Command
         .on "end", ->
           resolve()
 
-    q.drain =>
-      resolve()
-
 ImportCommand.description = "Import images"
 
 ImportCommand.flags = 
