@@ -3,29 +3,24 @@ Sharinpix = require('sharinpix-js')
 async = require('async')
 csv = require('fast-csv')
 fs = require('fs')
+Queue = require('./queue')
 
 class ImportCommand extends Command
   run: =>
     {flags} = @parse(ImportCommand)
     file = flags.file
 
-    q = async.queue((task, callback)=>
-      line = "#{task.album_id},#{task.url},#{task.tags},#{task.metadatas}"
-      Sharinpix.get_instance().post("/imports", {
-        import_type: 'url'
-        album_id: "#{task.album_id}"
-        url: "#{task.url}"
-        tags: "#{task.tags}"
-        metadatas: "#{task.metadatas}"
-      })
-      .then((result)->
-        console.log(line)
-        callback()
-      , (err)->
-        console.error(line)
-        callback()
-      )
-    , 10)
+    q = new Queue({
+      concurency: 5,
+      callback: (task)->
+        await Sharinpix.get_instance().post("/imports", {
+          import_type: 'url'
+          album_id: "#{task.album_id}"
+          url: "#{task.url}"
+          tags: "#{task.tags}"
+          metadatas: "#{task.metadatas}"
+        })
+    })
 
     await new Promise (resolve, reject)->
       csv
@@ -33,7 +28,10 @@ class ImportCommand extends Command
         .on "data", (data)->
           q.push(album_id: data[0], url: data[1], tags: data[2], metadatas: data[3])
         .on "end", ->
+          console.log('read csv')
           resolve()
+
+    await q.end()
 
 ImportCommand.description = "Import images"
 

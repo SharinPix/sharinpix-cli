@@ -3,12 +3,12 @@ sinon = require 'sinon'
 sharinpix = require 'sharinpix-js'
 
 describe 'import', ->
-  fakepost = sinon.fake
+  fakepost = null
 
   beforeEach ()->
-    fakepost = fakepost.returns new Promise (resolve, reject) -> 
-      return 'fake response'
-
+    fakepost = sinon.fake.returns(new Promise((resolve, reject)-> 
+      resolve()
+    ))
     stub = sinon.stub sharinpix, 'get_instance'
     stub.returns {post: fakepost}
 
