@@ -5,26 +5,25 @@ cli =  require('cli-ux')
 class AuthCommand extends Command 
   run: =>
     not_set_message = "SHARINPIX_URL is not set. Run the following commands: \nOn Windows: set SHARINPIX_URL=<<value>>\nOn Unix: export SHARINPIX_URL=<<value>>"
-    {flags} = @parse(AuthCommand)
+    {flags} = @parse AuthCommand
 
     if(Object.keys(flags).length == 0) 
         if (process.env.SHARINPIX_URL)
           try
             sharinpix.get_instance().get("/organization")
             .then (result)=>
-              @log result
               if (result.id)
                 @log 'SHARINPIX_URL is set. You can now interact with SharinPix.'
             , (err)=>
-              @log 'Cannot connect to Sharinpix'
+              @error 'Cannot connect to Sharinpix', {exit: 1}
           catch e
-        else 
-          @log not_set_message
+        else
+          console.log not_set_message
     else if (flags.view)
-      if (process.env.SHARINPIX_URL) 
+      if (process.env.SHARINPIX_URL)
         @log process.env.SHARINPIX_URL
       else
-        @log not_set_message
+        console.error not_set_message
 
 AuthCommand.description = "It helps you define the value of the environment variable: SHARINPIX_URL
 ...
