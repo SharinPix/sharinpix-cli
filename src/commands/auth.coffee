@@ -12,11 +12,10 @@ class AuthCommand extends Command
           try
             sharinpix.get_instance().get("/organization")
             .then (result)=>
-              @log result
               if (result.id)
                 @log 'SHARINPIX_URL is set. You can now interact with SharinPix.'
             , (err)=>
-              @log 'Cannot connect to Sharinpix'
+              @error 'Cannot connect to Sharinpix', {exit: 1}
           catch e
         else 
           @log not_set_message
