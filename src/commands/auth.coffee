@@ -15,8 +15,10 @@ class AuthCommand extends Command
               if (result.id)
                 @log 'SHARINPIX_URL is set. You can now interact with SharinPix.'
             , (err)=>
-              @error 'Cannot connect to Sharinpix', {exit: 1}
+              # @error 'Cannot connect to Sharinpix', {exit: 1}
+              console.error 'Cannot connect to Sharinpix'
           catch e
+            process.exit(1)
         else 
           @log not_set_message
     else if (flags.view)
