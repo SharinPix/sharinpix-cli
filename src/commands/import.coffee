@@ -1,41 +1,56 @@
 {Command, flags} = require('@oclif/command')
 Sharinpix = require('sharinpix-js')
 async = require('async')
-csv = require('fast-csv')
+csv = require('csvtojson')
 fs = require('fs')
 queue = require('./queue')
+ndjson = require('ndjson')
 
 class ImportCommand extends Command
   run: =>
     {flags} = @parse(ImportCommand)
-    file = flags.file
+    # If file is a csv we convert it to ndjson
+    import_id = (new Date()).getTime()
+    if /^.*\.csv$/.test(flags.file)
+      console.log 'Converting file'
+      ndjsonFilename = "#{flags.file}.ndjson"
+      ndjsonFile = fs.openSync(ndjsonFilename, 'w')
+      await new Promise (resolve, reject)->
+        csv(delimiter: ';')
+          .fromFile(flags.file)
+          .subscribe((obj)->
+            fs.writeSync(ndjsonFile, JSON.stringify(obj)+"\n")
+          , reject
+          , resolve)
+      flags.file = ndjsonFilename
+      console.log 'Converted !'
 
-    successcsv = fs.createWriteStream('Success.csv')
-    errorcsv = fs.createWriteStream('Error.csv')
+    errors = fs.openSync("#{flags.file}-errors.ndjson", 'w')
+    success = fs.openSync("#{flags.file}-success.ndjson", 'w')
 
     q = new queue
-      concurency: 5,
-      callback: (task)->
-        line = "#{task.album_id}, #{task.url}, #{task.tags}, #{task.metadatas}"
-
-        await Sharinpix.get_instance().post("/imports", {
-          import_type: 'url'
-          album_id: "#{task.album_id}"
-          url: "#{task.url}"
-          tags: task.tags
-          metadatas: task.metadatas
-        }).then (result)->
-          successcsv.write(line + '\n')
+      concurency: 20,
+      callback: (input)->
+        obj = JSON.parse(JSON.stringify(input))
+        obj.import_type ||= 'url'
+        obj.metadatas ||= {}
+        obj.metadatas.import_id ||= import_id
+        if typeof obj.tags == 'string'
+          obj.tags = obj.tags.split(',')
+        console.log '>', obj
+        await Sharinpix.get_instance().post(
+          '/imports',
+          obj
+        ).then (result)->
+          fs.writeSync(success,JSON.stringify(input)+"\n")
         , (err)->
-          errorcsv.write(line + '\n')
+          fs.writeSync(errors, JSON.stringify(input)+"\n")
 
-    await new Promise (resolve, reject)->
-      csv
-        .fromStream(fs.createReadStream(file), delimiter: ';')
-        .on "data", (data)->
-          q.push(album_id: data[0], url: data[1], tags: data[2].split(','), metadatas: JSON.parse(data[3]))
-        .on "end", ->
-          resolve()
+    fs.createReadStream(flags.file)
+      .pipe(ndjson.parse())
+      .on('data', (data)->
+        q.push(data)
+      )
 
     await q.end()
 

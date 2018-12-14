@@ -7,7 +7,7 @@ class Queue
     @end_promise = new Promise (resolve, reject)=>
       @end_callback = resolve
   push: (task)->
-    console.log('push', task)
+    # console.log('push', task)
     @tasks.push(task)
     @run()
   run: ->
@@ -25,9 +25,9 @@ class Queue
     @end_promise
   run_task: (task)->
     @concurency += 1
-    console.log('run', task)
+    # console.log('run', task)
     @config.callback(task).then =>
-      console.log('done', task)
+      # console.log('done', task)
       @concurency -= 1
       @run()
 
