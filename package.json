@@ -13,8 +13,12 @@
     "@oclif/plugin-help": "^2.1.2",
     "coffeescript": "^2.3.2",
     "csvtojson": "^2.0.8",
+    "md5-file": "^4.0.0",
+    "mmmagic": "^0.5.2",
     "ndjson": "^1.5.0",
-    "sharinpix-js": "0.0.9"
+    "request-promise-native": "^1.0.5",
+    "sharinpix-js": "0.0.9",
+    "tmp": "0.0.33"
   },
   "devDependencies": {
     "@oclif/dev-cli": "^1.18.1",

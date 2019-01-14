@@ -5,6 +5,80 @@ csv = require('csvtojson')
 fs = require('fs')
 queue = require('./queue')
 ndjson = require('ndjson')
+request = require('request-promise-native')
+tmp = require('tmp')
+mmm = require('mmmagic')
+md5File = require('md5-file')
+download = (url)->
+  console.log "Download #{url}"
+  new Promise (resolve, reject)->
+    filename = tmp.tmpNameSync()
+    request(url)
+      .on('end', ->
+        resolve(filename)
+      )
+      .on('error', (err)->
+        reject(err)
+      )
+      .pipe(fs.createWriteStream(filename))
+
+extract_infos = (filename)->
+  {
+    md5: md5File.sync(filename),
+    mime_type: await new Promise((resolve, reject)->
+      magic = new mmm.Magic(mmm.MAGIC_MIME_TYPE)
+      magic.detectFile(filename, (err, res)->
+        reject(err) if err
+        resolve(res)
+      )
+    ),
+    size: fs.statSync(filename).size,
+  }
+upload = (input)->
+  obj = JSON.parse(JSON.stringify(input))
+  obj.import_type ||= 'url'
+  obj.metadatas ||= {}
+  obj.metadatas.import_id ||= import_id
+  if typeof obj.tags == 'string'
+    obj.tags = obj.tags.split(',')
+  path = await download(obj.url)
+  filename = obj.filename || 'img.jpg' # TODO !!
+  infos = await extract_infos(path)
+  console.log infos
+
+  await Sharinpix.get_instance().upload_stream({
+    name: filename,
+    type: infos.mime_type,
+    size: infos.size,
+    file: fs.createReadStream(path)
+  })
+  storage_file = await Sharinpix.get_instance().post(
+    '/storage_files',
+    {
+      name: filename,
+      type: infos.mime_type,
+      size: infos.size,
+    }
+  )
+  console.log fs.statSync(path)
+  params = storage_file.upload_parameters
+  params.fields.file = fs.createReadStream(path)
+  console.log params
+  upload_result = await request({
+    method: params.method,
+    url: params.url,
+    formData: params.fields,
+  })
+
+  console.log 'UPLOADED !!?'
+  console.log res
+
+  res = await Sharinpix.get_instance().put(
+    "/storage_files/#{storage_file.id}",
+    {
+      infos: upload_result
+    }
+  )
 
 class ImportCommand extends Command
   run: =>
@@ -31,21 +105,11 @@ class ImportCommand extends Command
     q = new queue
       concurency: 20,
       callback: (input)->
-        obj = JSON.parse(JSON.stringify(input))
-        obj.import_type ||= 'url'
-        obj.metadatas ||= {}
-        obj.metadatas.import_id ||= import_id
-        if typeof obj.tags == 'string'
-          obj.tags = obj.tags.split(',')
-        console.log '>', obj
-        await Sharinpix.get_instance().post(
-          '/imports',
-          obj
-        ).then (result)->
+        upload(input).then(->
           fs.writeSync(success,JSON.stringify(input)+"\n")
-        , (err)->
+        , ->
           fs.writeSync(errors, JSON.stringify(input)+"\n")
-
+        )
     fs.createReadStream(flags.file)
       .pipe(ndjson.parse())
       .on('data', (data)->
