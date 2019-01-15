@@ -1,6 +1,5 @@
 {Command, flags} = require('@oclif/command')
 Sharinpix = require('sharinpix-js')
-async = require('async')
 csv = require('csvtojson')
 fs = require('fs')
 queue = require('./queue')
@@ -34,30 +33,25 @@ extract_infos = (filename)->
     ),
     size: fs.statSync(filename).size,
   }
-upload = (input)->
-  obj = JSON.parse(JSON.stringify(input))
-  obj.import_type ||= 'url'
-  obj.metadatas ||= {}
-  obj.metadatas.import_id ||= import_id
-  if typeof obj.tags == 'string'
-    obj.tags = obj.tags.split(',')
+upload = (obj)->
   path = await download(obj.url)
   filename = obj.filename || 'img.jpg' # TODO !!
   infos = await extract_infos(path)
   console.log infos
 
-  await Sharinpix.get_instance().upload_stream({
-    name: filename,
-    type: infos.mime_type,
-    size: infos.size,
-    file: fs.createReadStream(path)
-  })
+  # await Sharinpix.get_instance().upload_stream({
+  #   name: filename,
+  #   type: infos.mime_type,
+  #   size: infos.size,
+  #   file: fs.createReadStream(path)
+  # })
   storage_file = await Sharinpix.get_instance().post(
     '/storage_files',
     {
       name: filename,
       type: infos.mime_type,
       size: infos.size,
+      image_metadatas: obj.metadatas
     }
   )
   console.log fs.statSync(path)
@@ -105,9 +99,17 @@ class ImportCommand extends Command
     q = new queue
       concurency: 20,
       callback: (input)->
-        upload(input).then(->
+        obj = JSON.parse(JSON.stringify(input))
+        obj.import_type ||= 'url'
+        obj.metadatas ||= {}
+        obj.metadatas.import_id ||= import_id
+        if typeof obj.tags == 'string'
+          obj.tags = obj.tags.split(',')
+        upload(obj).then(->
+          console.log 'SUCCESS', input
           fs.writeSync(success,JSON.stringify(input)+"\n")
-        , ->
+        , (err)->
+          console.log 'error', input, err
           fs.writeSync(errors, JSON.stringify(input)+"\n")
         )
     fs.createReadStream(flags.file)
