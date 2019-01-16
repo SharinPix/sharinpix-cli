@@ -11,7 +11,7 @@ md5File = require('md5-file')
 download = (url)->
   console.log "Download #{url}"
   new Promise (resolve, reject)->
-    filename = tmp.tmpNameSync()
+    filename = tmp.tmpNameSync({prefix: 'import-' })
     request(url)
       .on('end', ->
         resolve(filename)
@@ -64,6 +64,7 @@ upload = (obj)->
     formData: params.fields,
   })
 
+  fs.unlinkSync(path)
   console.log 'UPLOADED !!?'
   console.log res
 
