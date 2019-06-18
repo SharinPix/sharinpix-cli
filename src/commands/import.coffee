@@ -29,7 +29,7 @@ class ImportCommand extends Command
     success = fs.openSync("#{flags.file}-success.ndjson", 'w')
 
     q = new queue
-      concurency: 20,
+      concurency: flags.concurency,
       callback: (input)->
         obj = JSON.parse(JSON.stringify(input))
         obj.import_type ||= 'url'
@@ -61,5 +61,10 @@ ImportCommand.flags =
     char: 'f'
     description: 'Path of file to import'
     required: true)
+  concurency: flags.string(
+    char: 'c'
+    description: 'Set concurrency value. Default to 10'
+    required: false
+    default: 10)
 
 module.exports = ImportCommand
