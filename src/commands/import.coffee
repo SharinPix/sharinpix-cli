@@ -28,6 +28,7 @@ class ImportCommand extends Command
     errors = fs.openSync("#{flags.file}-errors.ndjson", 'w')
     success = fs.openSync("#{flags.file}-success.ndjson", 'w')
 
+    count = 0
     q = new queue
       concurency: flags.concurency,
       callback: (input)->
@@ -37,7 +38,9 @@ class ImportCommand extends Command
         obj.metadatas.import_id ||= import_id
         if typeof obj.tags == 'string'
           obj.tags = obj.tags.split(',')
+        count = count + 1
         console.log '>', obj
+        console.log ">>> count: #{count}"
         await Sharinpix.get_instance().post(
           '/imports',
           obj
