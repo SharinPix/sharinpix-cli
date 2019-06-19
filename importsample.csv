@@ -1,0 +1,5 @@
+album_id;url;tags;metadatas.key
+000000000000000000;http://lorempixel.com/400/200/sports/;sport,action,fun;value1
+100000000000000000;http://lorempixel.com/400/200/portrait/;portrait,face,amazing;value2
+200000000000000000;http://lorempixel.com/400/200/forest/;forest,tree,green;value3
+300000000000000000;http://lorempixel.com/400/200/school/;student,teacher,school;value4
