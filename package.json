@@ -1,0 +1,79 @@
+{
+  "name": "sharinpix-cli",
+  "version": "0.0.0",
+  "description": "SharinPix command line utils",
+  "author": "sharinpix",
+  "bin": {
+    "spx": "./bin/run"
+  },
+  "homepage": "https://github.com/ruby/sharinpix-cli",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "repository": "ruby/sharinpix-cli",
+  "files": [
+    "/bin",
+    "/dist",
+    "/npm-shrinkwrap.json",
+    "/oclif.manifest.json"
+  ],
+  "dependencies": {
+    "@oclif/core": "^3",
+    "@oclif/plugin-help": "^5",
+    "@oclif/plugin-plugins": "^3.8.3",
+    "@types/jsonwebtoken": "^9.0.3",
+    "@types/papaparse": "^5.3.9",
+    "axios": "^1.5.1",
+    "eslint-config-prettier": "^9.0.0",
+    "form-data": "^4.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "papaparse": "^5.4.1"
+  },
+  "devDependencies": {
+    "@oclif/prettier-config": "^0.2.1",
+    "@oclif/test": "^3",
+    "@types/chai": "^4",
+    "@types/mocha": "^9.0.0",
+    "@types/node": "^18",
+    "chai": "^4",
+    "eslint": "^8.50.0",
+    "eslint-config-oclif": "^5",
+    "eslint-config-oclif-typescript": "^2.0.1",
+    "mocha": "^10",
+    "oclif": "^3.17.1",
+    "shx": "^0.3.3",
+    "ts-node": "^10.9.1",
+    "typescript": "^5"
+  },
+  "oclif": {
+    "bin": "spx",
+    "dirname": "spx",
+    "commands": "./dist/commands",
+    "plugins": [
+      "@oclif/plugin-help",
+      "@oclif/plugin-plugins"
+    ],
+    "topicSeparator": " ",
+    "topics": {
+      "hello": {
+        "description": "Say hello to the world and others"
+      }
+    }
+  },
+  "scripts": {
+    "build": "shx rm -rf dist && tsc -b",
+    "lint": "eslint . --ext .ts",
+    "postpack": "shx rm -f oclif.manifest.json",
+    "posttest": "yarn lint",
+    "prepack": "yarn build && oclif manifest && oclif readme",
+    "test": "mocha --forbid-only \"test/**/*.test.ts\"",
+    "version": "oclif readme && git add README.md"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "bugs": "https://github.com/ruby/sharinpix-cli/issues",
+  "keywords": [
+    "oclif"
+  ],
+  "types": "dist/index.d.ts"
+}
