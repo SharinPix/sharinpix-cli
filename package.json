@@ -1,10 +1,10 @@
 {
   "name": "@sharinpix/sharinpix-cli",
-  "version": "0.0.2",
+  "version": "0.0.12",
   "description": "SharinPix command line utils",
   "author": "sharinpix",
   "bin": {
-    "spx": "./bin/run"
+    "sharinpix": "bin/run"
   },
   "homepage": "https://github.com/sharinpix/sharinpix-cli",
   "license": "MIT",
@@ -45,8 +45,8 @@
     "typescript": "^5"
   },
   "oclif": {
-    "bin": "spx",
-    "dirname": "spx",
+    "bin": "sharinpix",
+    "dirname": "sharinpix",
     "commands": "./dist/commands",
     "plugins": [
       "@oclif/plugin-help",
@@ -63,15 +63,15 @@
     "build": "shx rm -rf dist && tsc -b",
     "lint": "eslint . --ext .ts",
     "postpack": "shx rm -f oclif.manifest.json",
-    "posttest": "yarn lint",
-    "prepack": "yarn build && oclif manifest && oclif readme",
+    "posttest": "npm run lint",
+    "prepack": "npm run build && oclif manifest && oclif readme",
     "test": "mocha --forbid-only \"test/**/*.test.ts\"",
     "version": "oclif readme && git add README.md"
   },
   "engines": {
     "node": ">=18.0.0"
   },
-  "bugs": "https://github.com/ruby/sharinpix-cli/issues",
+  "bugs": "https://github.com/sharinpix/sharinpix-cli/issues",
   "keywords": [
     "oclif"
   ],
