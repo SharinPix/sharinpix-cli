@@ -69,7 +69,7 @@
     "version": "oclif readme && git add README.md"
   },
   "engines": {
-    "node": ">=16.20.2"
+    "node": ">=18.0.0"
   },
   "bugs": "https://github.com/ruby/sharinpix-cli/issues",
   "keywords": [
