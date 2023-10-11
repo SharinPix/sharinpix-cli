@@ -1,5 +1,5 @@
 {
-  "name": "sharinpix-cli",
+  "name": "@sharinpix/sharinpix-cli",
   "version": "0.0.0",
   "description": "SharinPix command line utils",
   "author": "sharinpix",
