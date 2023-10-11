@@ -1,10 +1,10 @@
 {
   "name": "@sharinpix/sharinpix-cli",
-  "version": "0.0.2",
+  "version": "0.0.9",
   "description": "SharinPix command line utils",
   "author": "sharinpix",
   "bin": {
-    "spx": "./bin/run"
+    "sharinpix": "./bin2/run"
   },
   "homepage": "https://github.com/sharinpix/sharinpix-cli",
   "license": "MIT",
@@ -45,8 +45,8 @@
     "typescript": "^5"
   },
   "oclif": {
-    "bin": "spx",
-    "dirname": "spx",
+    "bin": "sharinpix",
+    "dirname": "dist",
     "commands": "./dist/commands",
     "plugins": [
       "@oclif/plugin-help",
@@ -71,7 +71,7 @@
   "engines": {
     "node": ">=18.0.0"
   },
-  "bugs": "https://github.com/ruby/sharinpix-cli/issues",
+  "bugs": "https://github.com/sharinpix/sharinpix-cli/issues",
   "keywords": [
     "oclif"
   ],

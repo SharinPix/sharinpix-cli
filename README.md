@@ -17,13 +17,13 @@ This is a simple CLI for SharinPix API
 <!-- usage -->
 ```sh-session
 $ npm install -g @sharinpix/sharinpix-cli
-$ spx COMMAND
+$ sharinpix COMMAND
 running command...
-$ spx (--version)
-@sharinpix/sharinpix-cli/0.0.2 linux-x64 node-v18.16.0
-$ spx --help [COMMAND]
+$ sharinpix (--version)
+@sharinpix/sharinpix-cli/0.0.9 linux-x64 node-v18.16.0
+$ sharinpix --help [COMMAND]
 USAGE
-  $ spx COMMAND
+  $ sharinpix COMMAND
 ...
 ```
 <!-- usagestop -->
@@ -38,25 +38,25 @@ export SHARINPIX_SECRET_URL=sharinpix://02cc044f-xxxx-xxxx-8b72-0eabb16a21cb:Mpl
 
 # Commands
 <!-- commands -->
-* [`spx help [COMMANDS]`](#spx-help-commands)
-* [`spx import file`](#spx-import-file)
-* [`spx plugins`](#spx-plugins)
-* [`spx plugins:install PLUGIN...`](#spx-pluginsinstall-plugin)
-* [`spx plugins:inspect PLUGIN...`](#spx-pluginsinspect-plugin)
-* [`spx plugins:install PLUGIN...`](#spx-pluginsinstall-plugin-1)
-* [`spx plugins:link PLUGIN`](#spx-pluginslink-plugin)
-* [`spx plugins:uninstall PLUGIN...`](#spx-pluginsuninstall-plugin)
-* [`spx plugins:uninstall PLUGIN...`](#spx-pluginsuninstall-plugin-1)
-* [`spx plugins:uninstall PLUGIN...`](#spx-pluginsuninstall-plugin-2)
-* [`spx plugins update`](#spx-plugins-update)
+* [`sharinpix help [COMMANDS]`](#sharinpix-help-commands)
+* [`sharinpix import file`](#sharinpix-import-file)
+* [`sharinpix plugins`](#sharinpix-plugins)
+* [`sharinpix plugins:install PLUGIN...`](#sharinpix-pluginsinstall-plugin)
+* [`sharinpix plugins:inspect PLUGIN...`](#sharinpix-pluginsinspect-plugin)
+* [`sharinpix plugins:install PLUGIN...`](#sharinpix-pluginsinstall-plugin-1)
+* [`sharinpix plugins:link PLUGIN`](#sharinpix-pluginslink-plugin)
+* [`sharinpix plugins:uninstall PLUGIN...`](#sharinpix-pluginsuninstall-plugin)
+* [`sharinpix plugins:uninstall PLUGIN...`](#sharinpix-pluginsuninstall-plugin-1)
+* [`sharinpix plugins:uninstall PLUGIN...`](#sharinpix-pluginsuninstall-plugin-2)
+* [`sharinpix plugins update`](#sharinpix-plugins-update)
 
-## `spx help [COMMANDS]`
+## `sharinpix help [COMMANDS]`
 
-Display help for spx.
+Display help for sharinpix.
 
 ```
 USAGE
-  $ spx help [COMMANDS] [-n]
+  $ sharinpix help [COMMANDS] [-n]
 
 ARGUMENTS
   COMMANDS  Command to show help for.
@@ -65,18 +65,18 @@ FLAGS
   -n, --nested-commands  Include all nested commands in the output.
 
 DESCRIPTION
-  Display help for spx.
+  Display help for sharinpix.
 ```
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.2.20/src/commands/help.ts)_
 
-## `spx import file`
+## `sharinpix import file`
 
 describe the command here
 
 ```
 USAGE
-  $ spx import file -p <value> [-f]
+  $ sharinpix import file -p <value> [-f]
 
 FLAGS
   -f, --force
@@ -86,18 +86,18 @@ DESCRIPTION
   describe the command here
 
 EXAMPLES
-  $ spx import file
+  $ sharinpix import file
 ```
 
-_See code: [src/commands/import/file.ts](https://github.com/sharinpix/sharinpix-cli/blob/v0.0.2/src/commands/import/file.ts)_
+_See code: [src/commands/import/file.ts](https://github.com/sharinpix/sharinpix-cli/blob/v0.0.9/src/commands/import/file.ts)_
 
-## `spx plugins`
+## `sharinpix plugins`
 
 List installed plugins.
 
 ```
 USAGE
-  $ spx plugins [--json] [--core]
+  $ sharinpix plugins [--json] [--core]
 
 FLAGS
   --core  Show core plugins.
@@ -109,18 +109,18 @@ DESCRIPTION
   List installed plugins.
 
 EXAMPLES
-  $ spx plugins
+  $ sharinpix plugins
 ```
 
 _See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v3.9.1/src/commands/plugins/index.ts)_
 
-## `spx plugins:install PLUGIN...`
+## `sharinpix plugins:install PLUGIN...`
 
 Installs a plugin into the CLI.
 
 ```
 USAGE
-  $ spx plugins:install PLUGIN...
+  $ sharinpix plugins:install PLUGIN...
 
 ARGUMENTS
   PLUGIN  Plugin to install.
@@ -142,23 +142,23 @@ DESCRIPTION
 
 
 ALIASES
-  $ spx plugins add
+  $ sharinpix plugins add
 
 EXAMPLES
-  $ spx plugins:install myplugin 
+  $ sharinpix plugins:install myplugin 
 
-  $ spx plugins:install https://github.com/someuser/someplugin
+  $ sharinpix plugins:install https://github.com/someuser/someplugin
 
-  $ spx plugins:install someuser/someplugin
+  $ sharinpix plugins:install someuser/someplugin
 ```
 
-## `spx plugins:inspect PLUGIN...`
+## `sharinpix plugins:inspect PLUGIN...`
 
 Displays installation properties of a plugin.
 
 ```
 USAGE
-  $ spx plugins:inspect PLUGIN...
+  $ sharinpix plugins:inspect PLUGIN...
 
 ARGUMENTS
   PLUGIN  [default: .] Plugin to inspect.
@@ -174,18 +174,18 @@ DESCRIPTION
   Displays installation properties of a plugin.
 
 EXAMPLES
-  $ spx plugins:inspect myplugin
+  $ sharinpix plugins:inspect myplugin
 ```
 
 _See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v3.9.1/src/commands/plugins/inspect.ts)_
 
-## `spx plugins:install PLUGIN...`
+## `sharinpix plugins:install PLUGIN...`
 
 Installs a plugin into the CLI.
 
 ```
 USAGE
-  $ spx plugins:install PLUGIN...
+  $ sharinpix plugins:install PLUGIN...
 
 ARGUMENTS
   PLUGIN  Plugin to install.
@@ -207,25 +207,25 @@ DESCRIPTION
 
 
 ALIASES
-  $ spx plugins add
+  $ sharinpix plugins add
 
 EXAMPLES
-  $ spx plugins:install myplugin 
+  $ sharinpix plugins:install myplugin 
 
-  $ spx plugins:install https://github.com/someuser/someplugin
+  $ sharinpix plugins:install https://github.com/someuser/someplugin
 
-  $ spx plugins:install someuser/someplugin
+  $ sharinpix plugins:install someuser/someplugin
 ```
 
 _See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v3.9.1/src/commands/plugins/install.ts)_
 
-## `spx plugins:link PLUGIN`
+## `sharinpix plugins:link PLUGIN`
 
 Links a plugin into the CLI for development.
 
 ```
 USAGE
-  $ spx plugins:link PLUGIN
+  $ sharinpix plugins:link PLUGIN
 
 ARGUMENTS
   PATH  [default: .] path to plugin
@@ -244,18 +244,18 @@ DESCRIPTION
 
 
 EXAMPLES
-  $ spx plugins:link myplugin
+  $ sharinpix plugins:link myplugin
 ```
 
 _See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v3.9.1/src/commands/plugins/link.ts)_
 
-## `spx plugins:uninstall PLUGIN...`
+## `sharinpix plugins:uninstall PLUGIN...`
 
 Removes a plugin from the CLI.
 
 ```
 USAGE
-  $ spx plugins:uninstall PLUGIN...
+  $ sharinpix plugins:uninstall PLUGIN...
 
 ARGUMENTS
   PLUGIN  plugin to uninstall
@@ -268,17 +268,17 @@ DESCRIPTION
   Removes a plugin from the CLI.
 
 ALIASES
-  $ spx plugins unlink
-  $ spx plugins remove
+  $ sharinpix plugins unlink
+  $ sharinpix plugins remove
 ```
 
-## `spx plugins:uninstall PLUGIN...`
+## `sharinpix plugins:uninstall PLUGIN...`
 
 Removes a plugin from the CLI.
 
 ```
 USAGE
-  $ spx plugins:uninstall PLUGIN...
+  $ sharinpix plugins:uninstall PLUGIN...
 
 ARGUMENTS
   PLUGIN  plugin to uninstall
@@ -291,19 +291,19 @@ DESCRIPTION
   Removes a plugin from the CLI.
 
 ALIASES
-  $ spx plugins unlink
-  $ spx plugins remove
+  $ sharinpix plugins unlink
+  $ sharinpix plugins remove
 ```
 
 _See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v3.9.1/src/commands/plugins/uninstall.ts)_
 
-## `spx plugins:uninstall PLUGIN...`
+## `sharinpix plugins:uninstall PLUGIN...`
 
 Removes a plugin from the CLI.
 
 ```
 USAGE
-  $ spx plugins:uninstall PLUGIN...
+  $ sharinpix plugins:uninstall PLUGIN...
 
 ARGUMENTS
   PLUGIN  plugin to uninstall
@@ -316,17 +316,17 @@ DESCRIPTION
   Removes a plugin from the CLI.
 
 ALIASES
-  $ spx plugins unlink
-  $ spx plugins remove
+  $ sharinpix plugins unlink
+  $ sharinpix plugins remove
 ```
 
-## `spx plugins update`
+## `sharinpix plugins update`
 
 Update installed plugins.
 
 ```
 USAGE
-  $ spx plugins update [-h] [-v]
+  $ sharinpix plugins update [-h] [-v]
 
 FLAGS
   -h, --help     Show CLI help.
