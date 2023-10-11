@@ -55,7 +55,7 @@
     "topicSeparator": " ",
     "topics": {
       "file": {
-        "description": "Upload images to SharinPix"
+        "description": "Upload images to SharinPix."
       }
     }
   },
