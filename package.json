@@ -1,15 +1,15 @@
 {
-  "name": "sharinpix-cli",
+  "name": "@sharinpix/sharinpix-cli",
   "version": "0.0.0",
   "description": "SharinPix command line utils",
   "author": "sharinpix",
   "bin": {
     "spx": "./bin/run"
   },
-  "homepage": "https://github.com/ruby/sharinpix-cli",
+  "homepage": "https://github.com/sharinpix/sharinpix-cli",
   "license": "MIT",
   "main": "dist/index.js",
-  "repository": "ruby/sharinpix-cli",
+  "repository": "sharinpix/sharinpix-cli",
   "files": [
     "/bin",
     "/dist",
@@ -54,8 +54,8 @@
     ],
     "topicSeparator": " ",
     "topics": {
-      "hello": {
-        "description": "Say hello to the world and others"
+      "file": {
+        "description": "Upload images to SharinPix"
       }
     }
   },
