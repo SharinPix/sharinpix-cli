@@ -20,7 +20,7 @@ $ npm install -g @sharinpix/sharinpix-cli
 $ sharinpix COMMAND
 running command...
 $ sharinpix (--version)
-@sharinpix/sharinpix-cli/0.0.9 linux-x64 node-v18.16.0
+@sharinpix/sharinpix-cli/0.0.11 linux-x64 node-v18.16.0
 $ sharinpix --help [COMMAND]
 USAGE
   $ sharinpix COMMAND
@@ -89,7 +89,7 @@ EXAMPLES
   $ sharinpix import file
 ```
 
-_See code: [src/commands/import/file.ts](https://github.com/sharinpix/sharinpix-cli/blob/v0.0.9/src/commands/import/file.ts)_
+_See code: [src/commands/import/file.ts](https://github.com/sharinpix/sharinpix-cli/blob/v0.0.11/src/commands/import/file.ts)_
 
 ## `sharinpix plugins`
 

@@ -1,10 +1,10 @@
 {
   "name": "@sharinpix/sharinpix-cli",
-  "version": "0.0.9",
+  "version": "0.0.12",
   "description": "SharinPix command line utils",
   "author": "sharinpix",
   "bin": {
-    "sharinpix": "./bin2/run"
+    "sharinpix": "bin/run"
   },
   "homepage": "https://github.com/sharinpix/sharinpix-cli",
   "license": "MIT",
@@ -46,7 +46,7 @@
   },
   "oclif": {
     "bin": "sharinpix",
-    "dirname": "dist",
+    "dirname": "sharinpix",
     "commands": "./dist/commands",
     "plugins": [
       "@oclif/plugin-help",
