@@ -6,10 +6,10 @@
   "bin": {
     "spx": "./bin/run"
   },
-  "homepage": "https://github.com/ruby/sharinpix-cli",
+  "homepage": "https://github.com/sharinpix/sharinpix-cli",
   "license": "MIT",
   "main": "dist/index.js",
-  "repository": "ruby/sharinpix-cli",
+  "repository": "sharinpix/sharinpix-cli",
   "files": [
     "/bin",
     "/dist",
@@ -54,8 +54,8 @@
     ],
     "topicSeparator": " ",
     "topics": {
-      "hello": {
-        "description": "Say hello to the world and others"
+      "file": {
+        "description": "Upload images to SharinPix"
       }
     }
   },
@@ -69,7 +69,7 @@
     "version": "oclif readme && git add README.md"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=16.20.2"
   },
   "bugs": "https://github.com/ruby/sharinpix-cli/issues",
   "keywords": [
